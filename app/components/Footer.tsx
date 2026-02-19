@@ -10,7 +10,10 @@ const quickLinks = [
 
 const resources = [
   { label: "Home School Legal Defense Association", href: "https://hslda.org" },
-  { label: "Kenya Institute of Curriculum Development", href: "https://kicd.ac.ke" },
+  {
+    label: "Kenya Institute of Curriculum Development",
+    href: "https://kicd.ac.ke",
+  },
   { label: "Homeschool.Com", href: "https://homeschool.com" },
 ];
 
@@ -51,7 +54,6 @@ export default function Footer() {
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1.5fr_1fr_1fr] gap-10">
-
           {/* Brand column */}
           <div className="flex flex-col gap-6">
             {/* Logo */}
@@ -61,15 +63,15 @@ export default function Footer() {
                 alt="HomeSchoolHub logo"
                 className="w-14 h-14 rounded-xl object-cover"
               />
-              <span className="text-yellow font-bold text-2xl">HomeSchoolHub</span>
+              <span className="text-yellow font-bold text-2xl">
+                HomeSchoolHub
+              </span>
             </div>
 
             {/* Tagline */}
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
               Give your child a world-class education tailored to their unique
-              learning style. Connect with expert Kenyan educators, access
-              CBC-aligneed Curriculum, and join a supportive community of
-              homeschooling families across Kenya.
+              learning style.
             </p>
 
             {/* CTA Button */}
@@ -160,7 +162,6 @@ export default function Footer() {
               </a>
             </div>
           </div>
-
         </div>
       </div>
 

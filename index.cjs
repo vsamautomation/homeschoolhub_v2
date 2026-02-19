@@ -1,19 +1,22 @@
 'use strict';
 
-const PORT = process.env.PORT || 3000;
+const path                         = require('path');
+const express                      = require('express');
+const compression                  = require('compression');
+const morgan                       = require('morgan');
+const { createRequestHandler }     = require('@react-router/express');
+
+const PORT             = process.env.PORT || 3000;
+const CLIENT_BUILD_DIR = path.join(__dirname, 'build', 'client');
 
 async function start() {
-  const { default: path }            = await import('path');
-  const { default: express }         = await import('express');
-  const { createRequestHandler }     = await import('@react-router/express');
-
-  const CLIENT_BUILD_DIR = path.join(process.cwd(), 'build', 'client');
-
-  // Pre-load the ESM server bundle — fails fast if the build is missing
+  // Only the server bundle is ESM — everything else is already require()'d above
   const build = await import('./build/server/index.js');
 
   const app = express();
   app.disable('x-powered-by');
+  app.use(compression());
+  app.use(morgan('combined'));
 
   // Hashed asset files — cache forever (immutable)
   app.use(
