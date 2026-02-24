@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS contact_submissions (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(100) NOT NULL,
+  last_name VARCHAR(100) NULL,
+  email VARCHAR(255) NOT NULL,
+  phone VARCHAR(64) NULL,
+  grade_level VARCHAR(64) NULL,
+  location VARCHAR(128) NULL,
+  message TEXT NOT NULL,
+  user_agent VARCHAR(512) NULL,
+  ip_address VARCHAR(64) NULL,
+  mail_status ENUM('pending', 'sent', 'failed') NOT NULL DEFAULT 'pending',
+  mail_error TEXT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  mail_sent_at DATETIME NULL,
+  PRIMARY KEY (id),
+  INDEX idx_contact_created_at (created_at),
+  INDEX idx_contact_grade_level (grade_level),
+  INDEX idx_contact_location (location),
+  INDEX idx_contact_mail_status (mail_status)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

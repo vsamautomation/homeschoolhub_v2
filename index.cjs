@@ -6,8 +6,18 @@ const compression = require('compression');
 const morgan = require('morgan');
 const { createRequestHandler } = require('@react-router/express');
 
-const PORT = process.env.PORT || 3010;
+function toPort(value, fallback) {
+  const port = Number.parseInt(value ?? '', 10);
+  return Number.isFinite(port) && port > 0 ? port : fallback;
+}
+
+const NODE_ENV = process.env.NODE_ENV || 'production';
+const MODE =
+  NODE_ENV === 'development' || NODE_ENV === 'test' ? NODE_ENV : 'production';
+const PORT = toPort(process.env.PORT, 3000);
+const HOST = process.env.HOST || '0.0.0.0';
 const CLIENT_BUILD_DIR = path.join(__dirname, 'build', 'client');
+process.env.NODE_ENV = NODE_ENV;
 
 async function start() {
   // Only the server bundle is ESM — everything else is already require()'d above
@@ -33,10 +43,12 @@ async function start() {
   );
 
   // All remaining requests handled by React Router
-  app.use(createRequestHandler({ build, mode: 'production' }));
+  app.use(createRequestHandler({ build, mode: MODE }));
 
-  app.listen(PORT, () => {
-    console.log(`HomeschoolHub server running on port ${PORT}`);
+  app.listen(PORT, HOST, () => {
+    console.log(
+      `HomeschoolHub server running on ${HOST}:${PORT} (NODE_ENV=${NODE_ENV}, mode=${MODE})`
+    );
   });
 }
 

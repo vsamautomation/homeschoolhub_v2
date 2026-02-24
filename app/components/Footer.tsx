@@ -147,7 +147,7 @@ export default function Footer() {
             <h4 className="font-bold text-lg mb-6">Connect With Us</h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/homeschoolhub.ke?igsh=YjZiZGtkcDJyNXZu&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"

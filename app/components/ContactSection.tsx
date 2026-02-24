@@ -1,4 +1,4 @@
-import { Form, useActionData, useNavigation } from "react-router";
+import { useFetcher } from "react-router";
 
 const contactDetails = [
   {
@@ -45,7 +45,7 @@ const contactDetails = [
     ),
   },
   {
-    lines: ["info@homeschoolhub.co.ke", "support@homeschoolhub.co.ke"],
+    lines: ["info@homeschoolhub.co.ke", "homeschoolhub.ke@gmail.com"],
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -118,12 +118,12 @@ function ContactInfo() {
 }
 
 export default function ContactSection() {
-  const actionData = useActionData<{ ok: boolean; error?: string }>();
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const fetcher = useFetcher<{ ok: boolean; error?: string }>();
+  const actionData = fetcher.data;
+  const isSubmitting = fetcher.state !== "idle";
 
   return (
-    <section className="bg-white py-20 px-6">
+    <section id="contact" className="bg-white py-20 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
@@ -167,7 +167,7 @@ export default function ContactSection() {
                 </p>
               </div>
             ) : (
-              <Form method="post" className="flex flex-col gap-5">
+              <fetcher.Form method="post" className="flex flex-col gap-5">
 
                 {/* Error banner */}
                 {actionData?.error && (
@@ -257,7 +257,7 @@ export default function ContactSection() {
                   </button>
                 </div>
 
-              </Form>
+              </fetcher.Form>
             )}
           </div>
 

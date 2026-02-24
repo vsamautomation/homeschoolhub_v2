@@ -12,10 +12,18 @@ type LogEntry = {
   error?: Record<string, unknown>;
 };
 
-const LOG_DIR =
-  process.env.LOG_DIR ?? path.join(process.cwd(), "logs");
-const ERROR_LOG_FILE =
-  process.env.ERROR_LOG_FILE ?? path.join(LOG_DIR, "error.log");
+function getLogConfig() {
+  const logDir =
+    process.env.LOG_DIR ?? path.join(process.cwd(), "logs");
+  const errorLogFile =
+    process.env.ERROR_LOG_FILE ?? path.join(logDir, "error.log");
+  const logToConsole =
+    process.env.LOG_TO_CONSOLE !== "false";
+  const logToFile =
+    process.env.LOG_TO_FILE !== "false";
+
+  return { logDir, errorLogFile, logToConsole, logToFile };
+}
 
 function normalizeError(err: unknown): Record<string, unknown> {
   if (err instanceof Error) {
@@ -55,9 +63,34 @@ export async function logError(
     error: entry.error ? normalizeError(entry.error) : undefined,
   };
 
+  const { logDir, errorLogFile, logToConsole, logToFile } =
+    getLogConfig();
+
+  if (logToConsole) {
+    const payload = {
+      ts: record.ts,
+      level: record.level,
+      scope: record.scope,
+      message: record.message,
+      context: record.context,
+      error: record.error,
+    };
+    const line = JSON.stringify(payload);
+
+    if (record.level === "warn") {
+      console.warn(line);
+    } else if (record.level === "info") {
+      console.log(line);
+    } else {
+      console.error(line);
+    }
+  }
+
+  if (!logToFile) return;
+
   try {
-    await fs.mkdir(LOG_DIR, { recursive: true });
-    await fs.appendFile(ERROR_LOG_FILE, `${JSON.stringify(record)}\n`, "utf8");
+    await fs.mkdir(logDir, { recursive: true });
+    await fs.appendFile(errorLogFile, `${JSON.stringify(record)}\n`, "utf8");
   } catch (writeErr) {
     console.error("Failed to write error log:", writeErr);
     console.error("Original error:", record);

@@ -49,16 +49,10 @@ export default function HeroSection() {
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4">
             <a
-              href="/contact"
+              href="#contact"
               className="bg-yellow text-navy font-bold text-sm px-7 py-3 rounded-full hover:bg-amber transition-colors shadow-md"
             >
               Start Free Consultation
-            </a>
-            <a
-              href="/about"
-              className="border-2 border-white text-white font-bold text-sm px-7 py-3 rounded-full hover:bg-white hover:text-navy transition-colors"
-            >
-              Learn More
             </a>
           </div>
         </div>

@@ -5,19 +5,16 @@ const services = [
     title: "Competency-Based Curriculum (CBC)",
     description:
       "Kenya's national curriculum delivered at home. Our CBC programme is fully aligned with national education standards while giving your child the flexibility to learn at their own pace with personalised support from certified Kenyan educators.",
-    href: "/services/cbc",
   },
   {
     title: "Montessori Method",
     description:
       "A child-led approach to learning that nurtures independence, creativity, and intrinsic motivation. Our Montessori-trained educators guide your child through hands-on, self-paced exploration tailored to their natural curiosity and developmental stage.",
-    href: "/services/montessori",
   },
   {
     title: "Cambridge International",
     description:
       "An internationally recognised curriculum that opens doors to global opportunities. Our Cambridge programme prepares your child for IGCSE and A-Level examinations with rigorous academics and dedicated expert guidance throughout.",
-    href: "/services/cambridge",
   },
 ];
 
@@ -36,7 +33,7 @@ export default function WhatWeOfferSection() {
 
         {/* Cards grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map(({ title, description, href }) => (
+          {services.map(({ title, description }) => (
             <div
               key={title}
               className="flex flex-col rounded-2xl border border-lavender shadow-md overflow-hidden"
@@ -58,15 +55,6 @@ export default function WhatWeOfferSection() {
                 </p>
               </div>
 
-              {/* Card footer */}
-              <div className="bg-white px-6 pb-8 flex justify-center">
-                <a
-                  href={href}
-                  className="bg-yellow text-navy font-bold text-sm px-10 py-3 rounded-lg hover:bg-amber transition-colors"
-                >
-                  Learn More
-                </a>
-              </div>
             </div>
           ))}
         </div>

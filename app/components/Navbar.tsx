@@ -3,7 +3,7 @@ import { useState } from "react";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 export default function Navbar() {
@@ -43,7 +43,7 @@ export default function Navbar() {
 
         {/* CTA button */}
         <a
-          href="/contact"
+          href="/#contact"
           className="hidden md:inline-block bg-yellow text-navy font-bold text-sm px-5 py-2 rounded-full hover:bg-amber transition-colors"
         >
           Get Started
@@ -94,7 +94,7 @@ export default function Navbar() {
           ))}
           <li>
             <a
-              href="/contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="bg-yellow text-navy font-bold text-sm px-6 py-2 rounded-full hover:bg-amber transition-colors"
             >
