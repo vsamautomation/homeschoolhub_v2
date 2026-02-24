@@ -1,17 +1,27 @@
 export default function HeroSection() {
   return (
     <section
-      className="relative max-h-[90vh] flex items-center bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage:
-          "url('/a-teacher-with-children-looking-at-a-globe.jpg')",
-      }}
+      className="relative max-h-[90vh] flex items-center overflow-hidden"
     >
+      <picture className="absolute inset-0 z-0">
+        <img
+          src="/optimized/hero-1280.jpg"
+          srcSet="/optimized/hero-768.jpg 768w, /optimized/hero-1280.jpg 1280w, /optimized/hero-1600.jpg 1600w, /optimized/hero-1920.jpg 1920w"
+          sizes="100vw"
+          alt=""
+          aria-hidden="true"
+          className="w-full h-full object-cover"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
+
       {/* Gradient overlay: solid navy left → transparent right */}
-      <div className="absolute inset-0 bg-linear-to-r from-navy via-navy/80 to-navy/10" />
+      <div className="absolute inset-0 z-10 bg-linear-to-r from-navy via-navy/80 to-navy/10" />
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-24">
+      <div className="relative z-20 w-full max-w-6xl mx-auto px-6 py-24">
         <div className="max-w-lg">
           {/* Eyebrow */}
           {/* <p className="text-yellow text-sm font-semibold uppercase tracking-widest mb-5">

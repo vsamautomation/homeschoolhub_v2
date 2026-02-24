@@ -15,9 +15,12 @@ export default function Navbar() {
         {/* Logo */}
         <a href="/" className="flex items-center gap-3 shrink-0">
           <img
-            src="/homeschoolhub-logo.jpg"
+            src="/optimized/logo-128.jpg"
+            srcSet="/optimized/logo-96.jpg 96w, /optimized/logo-128.jpg 128w, /optimized/logo-192.jpg 192w"
+            sizes="48px"
             alt="Homeschool Hub Logo"
             className="h-12 w-12 rounded-full object-cover border-2 border-yellow"
+            decoding="async"
           />
           <span className="text-[var(--color-yellow)] font-bold text-lg leading-tight hidden sm:block">
             Homeschool Hub

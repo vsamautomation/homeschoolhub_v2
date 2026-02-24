@@ -1,6 +1,7 @@
 import type { Route } from "./+types/home";
 import { data } from "react-router";
 import nodemailer from "nodemailer";
+import { logError } from "~/utils/logger.server";
 import Navbar from "~/components/Navbar";
 import HeroSection from "~/components/HeroSection";
 import WhyUsSection from "~/components/WhyUsSection";
@@ -39,8 +40,9 @@ export async function action({ request }: Route.ActionArgs) {
     );
   }
 
+  const port = Number(process.env.SMTP_PORT ?? 587);
+
   try {
-    const port = Number(process.env.SMTP_PORT ?? 587);
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port,
@@ -73,6 +75,23 @@ export async function action({ request }: Route.ActionArgs) {
     return data({ ok: true });
   } catch (err) {
     console.error("Email send error:", err);
+    await logError({
+      scope: "mail.send",
+      message: "Failed to send contact email",
+      error: err,
+      context: {
+        firstName,
+        lastName,
+        email,
+        gradeLevel: gradeLevel || undefined,
+        location: location || undefined,
+        hasPhone: Boolean(phone),
+        smtpHostSet: Boolean(process.env.SMTP_HOST),
+        smtpUserSet: Boolean(process.env.SMTP_USER),
+        smtpPassSet: Boolean(process.env.SMTP_PASS),
+        smtpPort: port,
+      },
+    });
     return data(
       { ok: false, error: "Failed to send. Please try again or call us directly." },
       { status: 500 }

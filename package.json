@@ -1,5 +1,5 @@
 {
-  "name": "homeschoolhub_v2",
+  "name": "homeschoolhub",
   "private": true,
   "type": "module",
   "scripts": {
@@ -7,7 +7,8 @@
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "start:cjs": "node index.cjs",
-    "typecheck": "react-router typegen && tsc"
+    "typecheck": "react-router typegen && tsc",
+    "optimize:images": "powershell -NoProfile -ExecutionPolicy Bypass -File ./scripts/optimize-images.ps1"
   },
   "dependencies": {
     "@react-router/node": "7.12.0",

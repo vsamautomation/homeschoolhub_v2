@@ -59,9 +59,13 @@ export default function Footer() {
             {/* Logo */}
             <div className="flex items-center gap-3">
               <img
-                src="/homeschoolhub-logo.jpg"
+                src="/optimized/logo-128.jpg"
+                srcSet="/optimized/logo-96.jpg 96w, /optimized/logo-128.jpg 128w, /optimized/logo-192.jpg 192w"
+                sizes="56px"
                 alt="HomeSchoolHub logo"
                 className="w-14 h-14 rounded-xl object-cover"
+                loading="lazy"
+                decoding="async"
               />
               <span className="text-yellow font-bold text-2xl">
                 HomeSchoolHub

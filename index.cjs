@@ -1,12 +1,12 @@
 'use strict';
 
-const path                         = require('path');
-const express                      = require('express');
-const compression                  = require('compression');
-const morgan                       = require('morgan');
-const { createRequestHandler }     = require('@react-router/express');
+const path = require('path');
+const express = require('express');
+const compression = require('compression');
+const morgan = require('morgan');
+const { createRequestHandler } = require('@react-router/express');
 
-const PORT             = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3010;
 const CLIENT_BUILD_DIR = path.join(__dirname, 'build', 'client');
 
 async function start() {
@@ -23,7 +23,7 @@ async function start() {
     '/assets',
     express.static(path.join(CLIENT_BUILD_DIR, 'assets'), {
       immutable: true,
-      maxAge:    '1y',
+      maxAge: '1y',
     })
   );
 

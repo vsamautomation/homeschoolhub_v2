@@ -63,22 +63,34 @@ export default function WhyUsSection() {
               {/* Left column — two stacked images */}
               <div className="flex flex-col gap-3">
                 <img
-                  src="/portrait-of-happy-young-girl.jpg"
+                  src="/optimized/whyus-girl-768.jpg"
+                  srcSet="/optimized/whyus-girl-480.jpg 480w, /optimized/whyus-girl-768.jpg 768w, /optimized/whyus-girl-1024.jpg 1024w"
+                  sizes="(min-width: 1024px) 25vw, 50vw"
                   alt="Child learning at home"
                   className="rounded-2xl object-cover w-full flex-1"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <img
-                  src="/woman-daughter-and-black-family-in-drawing-lounge-for.jpg"
+                  src="/optimized/whyus-family-768.jpg"
+                  srcSet="/optimized/whyus-family-480.jpg 480w, /optimized/whyus-family-768.jpg 768w, /optimized/whyus-family-1024.jpg 1024w"
+                  sizes="(min-width: 1024px) 25vw, 50vw"
                   alt="Parent and child learning together"
                   className="rounded-2xl object-cover w-full flex-1"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
               {/* Right column — one tall image */}
               <img
-                src="/black-female-teacher-instructs-primary-girls-group-students.jpg"
+                src="/optimized/whyus-teacher-768.jpg"
+                srcSet="/optimized/whyus-teacher-480.jpg 480w, /optimized/whyus-teacher-768.jpg 768w, /optimized/whyus-teacher-1024.jpg 1024w"
+                sizes="(min-width: 1024px) 25vw, 50vw"
                 alt="Expert teacher with students"
                 className="rounded-2xl object-cover w-full h-full"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 
