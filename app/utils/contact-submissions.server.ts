@@ -10,6 +10,9 @@ export type ContactSubmissionInput = {
   phone?: string;
   gradeLevel?: string;
   location?: string;
+  preferredContactMethod?: string;
+  preferredContactTime?: string;
+  urgency?: string;
   message: string;
   userAgent?: string;
   ipAddress?: string;
@@ -120,11 +123,14 @@ export async function insertContactSubmission(input: ContactSubmissionInput) {
         phone,
         grade_level,
         location,
+        preferred_contact_method,
+        preferred_contact_time,
+        urgency,
         message,
         user_agent,
         ip_address,
         mail_status
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'pending')
     `,
     [
       input.firstName,
@@ -133,6 +139,9 @@ export async function insertContactSubmission(input: ContactSubmissionInput) {
       input.phone || null,
       input.gradeLevel || null,
       input.location || null,
+      input.preferredContactMethod || null,
+      input.preferredContactTime || null,
+      input.urgency || null,
       input.message,
       input.userAgent || null,
       input.ipAddress || null,
@@ -242,6 +251,34 @@ export async function getContactSubmissionAnalytics(days: number) {
     [since]
   );
 
+  const [preferredContactMethodRows] = await db.query<BreakdownRow[]>(
+    `
+      SELECT
+        COALESCE(NULLIF(preferred_contact_method, ''), 'Unknown') AS label,
+        COUNT(*) AS total
+      FROM contact_submissions
+      WHERE created_at >= ?
+      GROUP BY label
+      ORDER BY total DESC
+      LIMIT 10
+    `,
+    [since]
+  );
+
+  const [urgencyRows] = await db.query<BreakdownRow[]>(
+    `
+      SELECT
+        COALESCE(NULLIF(urgency, ''), 'Unknown') AS label,
+        COUNT(*) AS total
+      FROM contact_submissions
+      WHERE created_at >= ?
+      GROUP BY label
+      ORDER BY total DESC
+      LIMIT 10
+    `,
+    [since]
+  );
+
   const summary = summaryRows[0] ?? {
     total_submissions: 0,
     total_sent: 0,
@@ -273,6 +310,14 @@ export async function getContactSubmissionAnalytics(days: number) {
       total: toCount(row.total),
     })),
     byLocation: locationRows.map((row) => ({
+      label: row.label,
+      total: toCount(row.total),
+    })),
+    byPreferredContactMethod: preferredContactMethodRows.map((row) => ({
+      label: row.label,
+      total: toCount(row.total),
+    })),
+    byUrgency: urgencyRows.map((row) => ({
       label: row.label,
       total: toCount(row.total),
     })),
